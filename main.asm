@@ -4,6 +4,7 @@
   
   entrada_fahrenheit_celcius: .asciiz "\nDigite a temperatura em Fahrenheit para que eu possa converta-la para Celcius: "
   entrada_fibonacci: .asciiz "\nDigite o enésimo termo que você deseja saber na sequência em Fibonacci: "
+  entrada_enesimo_par: .asciiz "\nDigite o enésimo termo par: "
   
   paramentro_sub_fahrenheit: .float 32
   paramentro_div_fahrenheit: .float 1.8
@@ -187,5 +188,23 @@
     j while # Volta para o menu 
    
 
-  ## Criando a funcao que ira calcular o enesimo numero par
+  ## Criando a função que irá calcular o enésimo número par
   enesimo_par:
+    ## Nessa função é calculado o enésimo número par a partir de um valor informado pelo usuário
+    
+    ## Pega enésimo termo do usuário
+    jal leInteiro
+    move $s0, $v0  # Salva o valor do enésimo termo em $s0
+
+    # Para pegar o enésimo número par, basta multiplicar a sua posição por 2
+    li $s1, 2       # Atribui o valor 2 ao registrador $s1
+    mult $s0, $s1   # Multiplica o enésimo termo por 2
+    mflo $s0        # Salva o resultado da multiplicação em $s0
+
+    # O enésimo número par está em $s0
+    move $a0, $s0 # Move o valor de $s0 para $a0
+    jal imprimeInteiro # Imprime o valor que está em $a0
+    
+    jal quebraLinha # Pula linha
+    
+    j while # Volta para o menu principal
