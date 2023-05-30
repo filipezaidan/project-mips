@@ -1,116 +1,122 @@
+### No .data ï¿½ o local onde serï¿½ declarado a inicializaï¿½ï¿½o das variaveis que sera utilizado durante a execuï¿½ï¿½o do programa
 .data
   menu: .asciiz "1 - Fahrenheit - > Celsius\n2 - Fibonnacci\n3 - Enesimo par\n4 - Sair\n \n"
+  
+  entrada_fahrenheit_celcius: .asciiz "\nDigite a temperatura em Fahrenheit para que eu possa converta-la para Celcius: "
+  entrada_fibonacci: .asciiz "\nDigite o enï¿½simo termo que vocï¿½ deseja saber na sequï¿½ncia em Fibonacci: "
   paramentro_sub_fahrenheit: .float 32
   paramentro_div_fahrenheit: .float 1.8
   
+  saida_resultado: .asciiz "Resultado: "
+  
 .text
-  ## Cria um "laço de repetição". Aqui, poderia ser qualquer nome, mas para criar semelhança as outras linguagens,
-  ## será adotado o nome while
+  ## Cria um "laï¿½o de repetiï¿½ï¿½o". Aqui, poderia ser qualquer nome, mas para criar semelhanï¿½a as outras linguagens,
+  ## serï¿½ adotado o nome while
   while:
-    ## Todo o código dentro desse módulo será repetido infinitamente, até o usuário escolher a opção 4
+    ## Todo o cï¿½digo dentro desse mï¿½dulo serï¿½ repetido infinitamente, atï¿½ o usuï¿½rio escolher a opï¿½ï¿½o 4
     
     
-    jal quebraLinha # Chama a função que quebrará a linha
+    jal quebraLinha # Chama a funï¿½ï¿½o que quebrarï¿½ a linha
     
-    ## Neste trecho, será mostrado o menu de opções definido na variável menu
-    la    $a0, menu         # Aqui o valor definido em menu é carregado no registrador $a0
-    jal imprimeTexto        # chamando a função que vai imprimir um texto
+    ## Neste trecho, serï¿½ mostrado o menu de opï¿½ï¿½es definido na variï¿½vel menu
+    la    $a0, menu         # Aqui o valor definido em menu ï¿½ carregado no registrador $a0
+    jal imprimeTexto        # chamando a funï¿½ï¿½o que vai imprimir um texto
             
             
-    ## Neste trecho, será lida e salva a escolha do usuário
-    jal leInteiro           # chamando a função que vai ler um inteiro
-    move $s0, $v0	    # Salvando a escolha do usuário no registrador $s0
+    ## Neste trecho, serï¿½ lida e salva a escolha do usuï¿½rio
+    jal leInteiro           # chamando a funï¿½ï¿½o que vai ler um inteiro
+    move $s0, $v0	    # Salvando a escolha do usuï¿½rio no registrador $s0
     
     
-    ## Neste trecho, a depender da escolha do usuário, será executada uma função diferente
-    beq   $s0, 1, fahrenheit_celcius       # Se for escolhido 1, chama a função que converte fahrenheit para célcius                                  
-    beq   $s0, 2, fibonacci                # Se for escolhido 2, chama a função que mostra o enésimo termo de fibonacci
-    beq   $s0, 3, enesimo_par              # Se for escolhido 3, chama a função que mostra o enésimo termo número par
-    beq   $s0, 4, finalizar_programa       # Se for escolhido 4, chama a função que vai encerrar o programa
+    ## Neste trecho, a depender da escolha do usuï¿½rio, serï¿½ executada uma funï¿½ï¿½o diferente
+    beq   $s0, 1, fahrenheit_celcius       # Se for escolhido 1, chama a funï¿½ï¿½o que converte fahrenheit para cï¿½lcius                                  
+    beq   $s0, 2, fibonacci                # Se for escolhido 2, chama a funï¿½ï¿½o que mostra o enï¿½simo termo de fibonacci
+    beq   $s0, 3, enesimo_par              # Se for escolhido 3, chama a funï¿½ï¿½o que mostra o enï¿½simo termo nï¿½mero par
+    beq   $s0, 4, finalizar_programa       # Se for escolhido 4, chama a funï¿½ï¿½o que vai encerrar o programa
 
                                     
-    j while # executa o módulo while de novo
+    j while # executa o mï¿½dulo while de novo
     
     
-  ## Criando a função que vai finalizar o programa  
+  ## Criando a funï¿½ï¿½o que vai finalizar o programa  
   finalizar_programa:
-    ## Nessa função o programa será encerrado
-    li $v0, 10               # Aqui atribuímos o valor 10 para $v0
-    syscall		     # e ao chamar o syscall com $v0 = 10, o programa é finalizado.
+    ## Nessa funï¿½ï¿½o o programa serï¿½ encerrado
+    li $v0, 10               # Aqui atribuï¿½mos o valor 10 para $v0
+    syscall		     # e ao chamar o syscall com $v0 = 10, o programa ï¿½ finalizado.
 
   
-  ## Criando a função que vai imprimir textos
+  ## Criando a funï¿½ï¿½o que vai imprimir textos
   imprimeTexto:
-    ## Essa função imprimirá o texto armazenado no registrador $a0
-    li    $v0, 4            # Nessa linha o valor 4 é atribuído ao registrador $v0
-    syscall                 # e aqui a função syscall é chamada, ela olhará o valor de $v0 e executará uma ação
-                            # Nesse caso, como o valor é 4, será chamada a função print_string, 
-                            # que exibirá em tela o valor armazenado no registrador $a0
+    ## Essa funï¿½ï¿½o imprimirï¿½ o texto armazenado no registrador $a0
+    li    $v0, 4            # Nessa linha o valor 4 ï¿½ atribuï¿½do ao registrador $v0
+    syscall                 # e aqui a funï¿½ï¿½o syscall ï¿½ chamada, ela olharï¿½ o valor de $v0 e executarï¿½ uma aï¿½ï¿½o
+                            # Nesse caso, como o valor ï¿½ 4, serï¿½ chamada a funï¿½ï¿½o print_string, 
+                            # que exibirï¿½ em tela o valor armazenado no registrador $a0
                             
-    jr $ra   # Retornará o valor da função aonde ela foi chamada
+    jr $ra   # Retornarï¿½ o valor da funï¿½ï¿½o aonde ela foi chamada
     
-  ## Criando a função que vai imprimir inteiros
+  ## Criando a funï¿½ï¿½o que vai imprimir inteiros
   imprimeInteiro:
-    ## Essa função imprimirá o inteiro armazenado no registrador $a0
-    li    $v0, 1            # Nessa linha o valor 1 é atribuído ao registrador $v0
-    syscall                 # e aqui a função syscall é chamada, ela olhará o valor de $v0 e executará uma ação
-                            # Nesse caso, como o valor é 1, será chamada a função print_int, 
-                            # que exibirá em tela o valor armazenado no registrador $a0
+    ## Essa funï¿½ï¿½o imprimirï¿½ o inteiro armazenado no registrador $a0
+    li    $v0, 1            # Nessa linha o valor 1 ï¿½ atribuï¿½do ao registrador $v0
+    syscall                 # e aqui a funï¿½ï¿½o syscall ï¿½ chamada, ela olharï¿½ o valor de $v0 e executarï¿½ uma aï¿½ï¿½o
+                            # Nesse caso, como o valor ï¿½ 1, serï¿½ chamada a funï¿½ï¿½o print_int, 
+                            # que exibirï¿½ em tela o valor armazenado no registrador $a0
                             
-    jr $ra   # Retornará o valor da função aonde ela foi chamada
+    jr $ra   # Retornarï¿½ o valor da funï¿½ï¿½o aonde ela foi chamada
     
-  ## Criando a função que vai ler inteiros
+  ## Criando a funï¿½ï¿½o que vai ler inteiros
   leInteiro:
-    ## Essa função lerá um inteiro informado pelo usuário
-    li    $v0, 5            # Nessa linha o valor 5 é atribuído ao registrador $v0
-    syscall                 # e aqui a função syscall é chamada, ela olhará o valor de $v0 e executará uma ação
-                            # Nesse caso, como o valor é 5, será chamada a função read_int, 
-                            # que esperará que usuário digite um número inteiro
+    ## Essa funï¿½ï¿½o lerï¿½ um inteiro informado pelo usuï¿½rio
+    li    $v0, 5            # Nessa linha o valor 5 ï¿½ atribuï¿½do ao registrador $v0
+    syscall                 # e aqui a funï¿½ï¿½o syscall ï¿½ chamada, ela olharï¿½ o valor de $v0 e executarï¿½ uma aï¿½ï¿½o
+                            # Nesse caso, como o valor ï¿½ 5, serï¿½ chamada a funï¿½ï¿½o read_int, 
+                            # que esperarï¿½ que usuï¿½rio digite um nï¿½mero inteiro
                             
-    jr $ra   # Retornará o valor da função aonde ela foi chamada
+    jr $ra   # Retornarï¿½ o valor da funï¿½ï¿½o aonde ela foi chamada
   
-  ## Criando a função que vai imprimir float
+  ## Criando a funï¿½ï¿½o que vai imprimir float
   imprimeFloat:
-    ## Essa função imprimirá o float armazenado no registrador $f12
-    li    $v0, 2           # Nessa linha o valor 2 é atribuído ao registrador $v0
-    syscall                 # e aqui a função syscall é chamada, ela olhará o valor de $v0 e executará uma ação
-                            # Nesse caso, como o valor é 2, será chamada a função print_float, 
-                            # que exibirá em tela o valor armazenado no registrador $f12
+    ## Essa funï¿½ï¿½o imprimirï¿½ o float armazenado no registrador $f12
+    li    $v0, 2           # Nessa linha o valor 2 ï¿½ atribuï¿½do ao registrador $v0
+    syscall                 # e aqui a funï¿½ï¿½o syscall ï¿½ chamada, ela olharï¿½ o valor de $v0 e executarï¿½ uma aï¿½ï¿½o
+                            # Nesse caso, como o valor ï¿½ 2, serï¿½ chamada a funï¿½ï¿½o print_float, 
+                            # que exibirï¿½ em tela o valor armazenado no registrador $f12
                                      
-    jr $ra   # Retornará o valor da função aonde ela foi chamada
+    jr $ra   # Retornarï¿½ o valor da funï¿½ï¿½o aonde ela foi chamada
   
-  ## Criando a função que vai ler float
+  ## Criando a funï¿½ï¿½o que vai ler float
   leFloat:
-    ## Essa função lerá um ponto flotoante informado pelo usuário
-    li    $v0, 6            # Nessa linha o valor 6 é atribuído ao registrador $f0
-    syscall                 # e aqui a função syscall é chamada, ela olhará o valor de $f0 e executará uma ação
-                            # Nesse caso, como o valor é 6, será chamada a função read_float, 
-                            # que esperará que usuário digite um número de ponto flotoante
+    ## Essa funï¿½ï¿½o lerï¿½ um ponto flotoante informado pelo usuï¿½rio
+    li    $v0, 6            # Nessa linha o valor 6 ï¿½ atribuï¿½do ao registrador $f0
+    syscall                 # e aqui a funï¿½ï¿½o syscall ï¿½ chamada, ela olharï¿½ o valor de $f0 e executarï¿½ uma aï¿½ï¿½o
+                            # Nesse caso, como o valor ï¿½ 6, serï¿½ chamada a funï¿½ï¿½o read_float, 
+                            # que esperarï¿½ que usuï¿½rio digite um nï¿½mero de ponto flotoante
                             
-    jr $ra   # Retornará o valor da função aonde ela foi chamada
+    jr $ra   # Retornarï¿½ o valor da funï¿½ï¿½o aonde ela foi chamada
   
   
-  ## Criando a função que vai quebrar a linha de código
+  ## Criando a funï¿½ï¿½o que vai quebrar a linha de cï¿½digo
   quebraLinha: 
-    ## Essa função irá atribuir o caractere de quebra de linha ao registrador $a0 e atribuir o valor 11 ao $v0
+    ## Essa funï¿½ï¿½o irï¿½ atribuir o caractere de quebra de linha ao registrador $a0 e atribuir o valor 11 ao $v0
     li $a0, '\n'
     li $v0, 11
-    syscall # como o valor em $v0 é 11, será chamada a função print_char, que vai buscar o valor do caractere em $a0
+    syscall # como o valor em $v0 ï¿½ 11, serï¿½ chamada a funï¿½ï¿½o print_char, que vai buscar o valor do caractere em $a0
 
-    ## Como o caractere em $a0 é o \n, a linha será quebrada
+    ## Como o caractere em $a0 ï¿½ o \n, a linha serï¿½ quebrada
 
-    jr $ra  # Retornará o valor da função aonde ela foi chamada
+    jr $ra  # Retornarï¿½ o valor da funï¿½ï¿½o aonde ela foi chamada
   
 
-  ## Criando a função que vai converter o valor informado de célcius para fahrenheit
+  ## Criando a funï¿½ï¿½o que vai converter o valor informado de cï¿½lcius para fahrenheit
   fahrenheit_celcius:
-    ## Nessa função será feita a conversão de fahrenheit para célcius
-    ## A fórmula utilizada é: Celsius = (Fahrenheit - 32)/1.8
+    ## Nessa funï¿½ï¿½o serï¿½ feita a conversï¿½o de fahrenheit para cï¿½lcius
+    ## A fï¿½rmula utilizada ï¿½: Celsius = (Fahrenheit - 32)/1.8
     
-   ## Lê a temperatura em Fahrenheit do usuário
+   ## Lï¿½ a temperatura em Fahrenheit do usuï¿½rio
    jal leFloat
 
-    ## Aplicando a fórmula para converter o valor em Fahrenheit para Célcius
+    ## Aplicando a fï¿½rmula para converter o valor em Fahrenheit para Cï¿½lcius
     lwc1 $f1, paramentro_sub_fahrenheit  # Atribui o valor de paramentro_sub_fahrenheit(32) ao registrador $f1  
     sub.s $f0, $f0, $f1       # Subtrai 32 do valor em Fahrenheit informado pelo usuario e salva em $f0
     lwc1 $f1, paramentro_div_fahrenheit # Atribui o valor de paramentro_div_fahrenheit(1.8) ao registrador $f1
@@ -118,7 +124,7 @@
    
     mov.s $f12, $f0 # Move o valor de $f0 para $f12
     
-    # A temperatura em Celsius está em $f12
+    # A temperatura em Celsius estï¿½ em $f12
     jal imprimeFloat #Imprime o valor
     
     jal quebraLinha #Pular linha
@@ -126,9 +132,56 @@
     j while #Volta ao menu principal
   
   
-  ## Criando a função para calcular o enésimo termo da sequência de Fibonacci
+  ## Criando a funï¿½ï¿½o para calcular o enï¿½simo termo da sequï¿½ncia de Fibonacci
   fibonacci:
+    ## Nessa funï¿½ï¿½o, serï¿½ calculado o enï¿½simo termo da sequï¿½ncia de fibonacci, a partir de um valor inserido 
+    ## pelo usuï¿½rio. 
+    ## O cï¿½lculo serï¿½ feito salvando os dois termos anteriores em registradores diferentes, um representando
+    ## o ï¿½ltimo termo, e o outro representando o penï¿½ltimo termo.
+  
+   la $a0, entrada_fibonacci
+   jal imprimeTexto
+  
+    # Primeiro, serï¿½ pego o enï¿½simo termo a partir do usuï¿½rio
+    jal leInteiro
+    move $s0, $v0  # Coloca o enï¿½simo termo no registrador $s0
+    
+    
+    # Inicialmente, os registradores $s1 e $s2 armazenaram os primeiros termos da sequï¿½ncia
+    li $s1, 0       # Primeiro termo da sequï¿½ncia de fibonacci
+    li $s2, 1       # Segundo termo da sequï¿½ncia de fibonacci
+
+
+    # Se o enï¿½simo termo for o primeiro ou o segundo termo, pularï¿½ o loop e irï¿½ direto para o cï¿½digo final
+    beq $s0, 0, fim_fibonacci  # Se o enï¿½simo termo for 0, ir direto pro final
+    beq $s0, 1, fim_fibonacci  # Se o enï¿½simo termo for 1, ir direto pro final
+
+
+    # Como os dois primeiros termos jï¿½ foram definidos, ï¿½ preciso reduzir 2 do nï¿½mero de vezes que o loop
+    # irï¿½ se repetir, ou seja, diminuir 2 do contador, que nesse caso ï¿½ o enï¿½simo termo informado pelo usuï¿½rio
+    # que estï¿½ no registrado $s0
+    addi $s0, $s0, -2  # Decrementar o enï¿½simo termo em 2 (ele serve de contador para o loop)
+    loop_fibonacci:
+        add $s3, $s1, $s2         # Soma os dois termos anteriores e salva o resultado no registrado $s3
+        move $s1, $s2             # O penï¿½ltimo termo passa a ser o ï¿½ltimo atual
+        move $s2, $s3             # O ï¿½ltimo termo passa a ser a soma dos dois termos anteiores
+        addi $s0, $s0, -1         # Decrementa o enï¿½simo termo em 1 (lembrando, ele serve de contador aqui)
+        bgtz $s0, loop_fibonacci  # Se o enï¿½simo termo for maior que 0, repete o loop
+  
+  ## Criando a funï¿½ï¿½o que finalizarï¿½ a sequï¿½ncia de fibonacci
+  fim_fibonacci:
+  
+    la $a0, saida_resultado #Salva o valor da saida_resultado em $a0
+    jal imprimeTexto #Imprime o texto da saida_resultado
+    
+    # O enï¿½simo termo  estï¿½ em $s2
+    move $a0, $s2 # Move o valor de $s2 para $a0
+    jal imprimeInteiro # Imprime o valor 
+    
+    jal quebraLinha # Pular linha
+    
+    j while # Volta para o menu 
    
 
-  ## Criando a função que irá calcular o enésimo número par
+  ## Criando a funï¿½ï¿½o que irï¿½ calcular o enï¿½simo nï¿½mero par
   enesimo_par:
