@@ -192,6 +192,9 @@
   enesimo_par:
     ## Nessa função é calculado o enésimo número par a partir de um valor informado pelo usuário
     
+    la $a0, entrada_enesimo_par # Salva o valor da entrada_enesimo_par em $a0
+    jal imprimeTexto #Imprime o texto que está em entrada_enesimo_par
+
     ## Pega enésimo termo do usuário
     jal leInteiro
     move $s0, $v0  # Salva o valor do enésimo termo em $s0
