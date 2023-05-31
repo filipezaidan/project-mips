@@ -23,13 +23,13 @@ Para executar o programa, siga as instruções abaixo:
 2. Clone o repositório do projeto ABAIXE em seu ambiente local:
 
    ```
-   git clone https://github.com/seu-usuario/projeto-abaixe.git
+   git clone https://github.com/filipezaidan/project-mips
    ```
 
 3. Navegue até o diretório do projeto:
 
    ```
-   cd projeto-abaixe
+   cd project-mips
    ```
 
 4. Execute o programa em seu ambiente MIPS.
